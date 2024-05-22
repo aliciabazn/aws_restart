@@ -46,7 +46,9 @@ with open("car_fleet.csv") as csvFile:
             lineCount += 1 #incrementamos el contador de líneas.
         else: #para todas las demas lineas, imprime los datos del vehiculo
             print(f'vin: {row[0]} make: {row[1]}, model: {row[2]}, year: {row[3]}, range: {row[4]}, topSpeed: {row[5]}, zeroSixty: {row[6]}, mileage:{row[7]}')    
-            currentVehicle = copy.deepcopy(myVehicle)
+            #creamos una copia independiente de myvehicle, de modo que cualquier cambio no afectará al archivo original
+            currentVehicle = copy.deepcopy(myVehicle) #cla función opy.deepcopy del modulo copy, crea una copia profunda de un objeto, garantiza que se creen nuevas cajas
+            # de almacenamiento para los nuevos datos.
             currentVehicle["vin"] = row[0]  
             currentVehicle["make"] = row[1]  
             currentVehicle["model"] = row[2]  
@@ -56,5 +58,15 @@ with open("car_fleet.csv") as csvFile:
             currentVehicle["zeroSixty"] = row[6]  
             currentVehicle["mileage"] = row[7]
             myInventoryList.append(currentVehicle)
-            lineCount += 1
-    print(f'Processed {lineCount} lines.')
+            
+        lineCount += 1 #mantiene un conteo de linea. incrementa el valor de linecount
+        #lineCount = lineCount + 1 <-- "ejemplo"
+    print(f'Processed {lineCount} lines.') #imprimimos el valor actual de linecount
+    currentVehicle = copy.deepcopy(myVehicle)
+    #iniciamos bucle que recorre los elementos de myinvertorylist
+    #a este elemento le asignamos una variable mycarproperties en cada iteración
+    for myCarProperties in myInventoryList: 
+        for key, value in myCarProperties.items(): #segunda iteración, item devuelve una vista de pares(clave valor)
+            #item le indica al bucle que la iteación se haga dependiendo al tipo de dato que es: clave valor
+            print("{} : {}".format(key,value))
+            print("-----")
